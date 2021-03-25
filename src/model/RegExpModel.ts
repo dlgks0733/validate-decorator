@@ -39,9 +39,6 @@ export class RegExpVal {
                     errMsg: "잘못된 전화번호 형식"
                 };
             }
-            default: {
-                throw new Error("잘못된 정규식 타입입니다.");
-            }
         }
     }   
 }

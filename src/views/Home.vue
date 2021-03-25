@@ -13,7 +13,13 @@
       전화번호: <input type="text" v-model="phone" /> <br />
       <span v-show="validators.get('phone').valid === false">{{validators.get("phone").errMsg}}</span>
     </p>
-    <button @click="test">테스트</button>
+    <p>
+      숫자만: <input type="text" v-model="num" /> <br />
+      <span v-show="validators.get('num').valid === false">{{validators.get("num").errMsg}}</span>
+    </p>
+    <button @click="test"
+     :disabled="!validators.get('phone').valid || !validators.get('email').valid || 
+     !validators.get('name').valid || !validators.get('num').valid">테스트</button>
   </div>
 </template>
 
@@ -31,9 +37,13 @@ export default class Home extends Vue {
   @RegExps("PHONE")
   phone = "";
 
+  @RegExps(/^[0-9]+$/, "숫자만 입력 가능")
+  num = ""
+
   @Watch("name")
   @Watch("email")
   @Watch("phone")
+  @Watch("num")
   @Validate()
   validate() { return null; }
 

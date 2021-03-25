@@ -3,11 +3,14 @@ import {RegExpVal, RegExpTypes } from '@/model/RegExpModel';
 
 const regExpMap: Map<string, any> = new Map<string, Object>();
 
-function RegExps(RegExpType: RegExpTypes) {
+function RegExps(regExpType: RegExpTypes): Function;
+function RegExps(exp: RegExp, msg: string): Function;
+function RegExps(one: any, two?: any): Function {
     return (target: any, propertyKey: string) => {
-        const { regExp, errMsg } = RegExpVal.getInstance.getValue(RegExpType);
+        const type = (typeof one === "object") ? "OTHER" : one;
+        const { regExp, errMsg } = (typeof one === "object") ? {regExp: one, errMsg: two} : RegExpVal.getInstance.getValue(one);
         const regExpJson = {
-            type: RegExpType,
+            type: type,
             regExp: regExp,
             errMsg: errMsg,
             valid: undefined
