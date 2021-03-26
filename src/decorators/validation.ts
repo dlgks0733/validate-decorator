@@ -7,8 +7,7 @@ function RegExps(regExpType: RegExpTypes): Function;
 function RegExps(exp: RegExp, msg: string): Function;
 function RegExps(one: any, two?: any): Function {
     return (target: any, propertyKey: string) => {
-        const type = (typeof one === "object") ? "OTHER" : one;
-        const { regExp, errMsg } = (typeof one === "object") ? {regExp: one, errMsg: two} : RegExpVal.getInstance.getValue(one);
+        const { type, regExp, errMsg } = (typeof one === "object") ? {type: "OTHER", regExp: one, errMsg: two} : RegExpVal.getInstance.getValue(one);
         const regExpJson = {
             type: type,
             regExp: regExp,
